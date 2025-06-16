@@ -296,7 +296,7 @@ window.doAverageSweep = 1;
                       }
 
 
-                      //Request init of the MAX3009
+                      //Request init of the max30009
                       $("#btn-send-init").unbind().click(async function () {
                         console.log("> Sending message init (000002). UUID=", characteristicWrite.uuid);
                         let value = fromHexString('000002');
@@ -1065,14 +1065,14 @@ function handleCommand(event) {
     let type = (value.getUint8(2) & 0x0C) >> 2,
       cal = (value.getUint8(2) & 0x03),
       nb_cal = value.getUint8(0),
-      MAX3009_SUCCESS = (value.getUint8(1) & 0x01),
+      max30009_SUCCESS = (value.getUint8(1) & 0x01),
       EEPROM_SUCCESS = ((value.getUint8(1) & 0x02) >> 1);
     console.log('> INIT_CONNECTION tag ' + tag.toString(10) + ', 0x ' + hexValue, type, cal, nb_cal);
     if (type == 0) {
       setStepOK($("#div-connect-step-2"));
-      if (!MAX3009_SUCCESS) {
+      if (!max30009_SUCCESS) {
         setStepError($("#div-connect-step-3"));
-        alertError($("#alert-connect-sequence"), "No se ha podido comunicar con el chip MAX3009.");
+        alertError($("#alert-connect-sequence"), "No se ha podido comunicar con el chip max30009.");
         if (debugMode) {
           $("#btns-commands").fadeIn();
         }
@@ -1176,8 +1176,8 @@ function handleCommand(event) {
     else if ((value.getUint8(2) & 0x0F) == 0x2) {
       //SPI error
       if ((value.getUint8(0) & 0x0F) == 1) {
-        alertError($("#alert-calibrate"), "Una transmisión SPI al chip MAX3009 no se ha realizado correctamente. ");
-        alertError($("#alert-form-calibrate"), "Una transmisión SPI al chip MAX3009 no se ha realizado correctamente. ");
+        alertError($("#alert-calibrate"), "Una transmisión SPI al chip max30009 no se ha realizado correctamente. ");
+        alertError($("#alert-form-calibrate"), "Una transmisión SPI al chip max30009 no se ha realizado correctamente. ");
       }
     }
     else if ((value.getUint8(2) & 0x0F) == 0xC) {
