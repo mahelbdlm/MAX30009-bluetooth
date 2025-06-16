@@ -1,7 +1,7 @@
-# MAX3009-bluetooth
-Design and Implementation of a Bioimpedance Measurement System Based on the MAX30009 System-on-Chip is a bachelor thesis conducted in the Polytechnic University of Catalonia (UPC) in 2025. Its purpose is to create a system able to obtain bio impedance using the MAX3009 SOC and custom firmware / software. 
+# MAX30009-bluetooth
+Design and Implementation of a Bioimpedance Measurement System Based on the MAX30009 System-on-Chip is a bachelor thesis conducted in the Polytechnic University of Catalonia (UPC) in 2025. Its purpose is to create a system able to obtain bio impedance using the MAX30009 SOC and custom firmware / software. 
 
-The system created uses an Arduino Nano to communicate with the PC and the MAX3009 chip. The Arduino is connected to two main components: the MAX3009 chip and the EEPROM memory through the SPI communication protocol.
+The system created uses an Arduino Nano to communicate with the PC and the MAX30009 chip. The Arduino is connected to two main components: the MAX30009 chip and the EEPROM memory through the SPI communication protocol.
 <div align="center">
     <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/589594e0-6306-4362-82bc-920060a84f2f">
   <br/>
