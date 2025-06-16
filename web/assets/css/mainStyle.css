@@ -1,0 +1,90 @@
+.noDisplay {
+  display: none;
+}
+
+.noVisibility {
+  visibility: hidden;
+}
+
+.totalOpacity {
+  opacity: 0;
+}
+
+.sectionLoading {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .col-btn-manage {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 300px) {
+  .col-btn-tools {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1100px) {
+  div#div-chart {
+    height: 800px !important;
+  }
+}
+
+@media (min-width: 1500px) {
+  div#div-chart {
+    height: 1000px !important;
+  }
+}
+
+.textarea-input {
+  height: 120px;
+}
+
+/* custom radio */
+
+.customRadio input[type="radio"] {
+  position: absolute;
+  left: -9999px;
+}
+
+.customRadio input[type="radio"] + label {
+  position: relative;
+  padding: 3px 0 0 40px;
+  cursor: pointer;
+}
+
+.customRadio input[type="radio"] + label:before {
+  content: '';
+  background: #fff;
+  border: 2px solid #921b1b;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.customRadio input[type="radio"] + label:after {
+  content: '';
+  background: #7c1818;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  opacity: 0;
+  transform: scale(2);
+  transition: transform 0.3s linear, opacity 0.3s linear;
+}
+
+.customRadio input[type="radio"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+
