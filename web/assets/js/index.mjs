@@ -17,7 +17,7 @@ var I_offset, Q_offset = 0, I_rcal_in = 0, Q_rcal_in = 0, I_rcal_quad = 0, Q_rca
 var init_cal_transmission = 0, rcal_calib = 0;
 
 var lengthCalibrationFrequencies = 0;
-var calibTransmission = 0, calibFatalError = 0, sweepTransmission = 0, sweepIndex = 0;
+var calibTransmission = 0, calibFatalError = 0, sweepTransmission = 0, sweepIndex = 0, singleFrequencyTransmission = 0;
 //window.frequenciesArray = [{ "freq": 5000, "mdiv": 625, "ndiv": 1, "kdiv": 4, "dac_osr": 3, "adc_osr": 5, "generatedFreq": 5000, "recievedFreq": 3, "I_offset": -485, "Q_offset": -281, "I_rcal_in": 31019, "Q_rcal_in": -31825, "I_rcal_quad": -501, "Q_rcal_quad": -267, "I_cal_in": 31504, "Q_cal_in": -31544, "I_cal_quad": -16, "Q_cal_quad": 14, "I_coeff": 143.20001846807213, "Q_coeff": 143.38183230350612, "I_phase_coeff": -0.02909892056216701, "Q_phase_coeff": -0.025429268973958176, "avg_real": 568.6375519313021, "avg_imag": -1.572081973927845, "avg_mag": 568.6397250528291, "avg_angle": -0.15840218846603432 }, { "freq": 20000, "mdiv": 625, "ndiv": 1, "kdiv": 2, "dac_osr": 3, "adc_osr": 5, "generatedFreq": 20000, "recievedFreq": 3, "I_offset": -472, "Q_offset": -278, "I_rcal_in": 31064, "Q_rcal_in": -31840, "I_rcal_quad": -582, "Q_rcal_quad": -178, "I_cal_in": 31536, "Q_cal_in": -31562, "I_cal_quad": -110, "Q_cal_quad": 100, "I_coeff": 143.3463265620817, "Q_coeff": 143.46435644524368, "I_phase_coeff": -0.19985128698343502, "Q_phase_coeff": -0.18153345096021264, "avg_real": 567.9917661185026, "avg_imag": -1.9184653521179833, "avg_mag": 567.9950060411826, "avg_angle": -0.1935231395512525 }, { "freq": 50000, "mdiv": 781, "ndiv": 1, "kdiv": 1, "dac_osr": 3, "adc_osr": 5, "generatedFreq": 49984, "recievedFreq": 3, "I_offset": -495, "Q_offset": -351, "I_rcal_in": 31389, "Q_rcal_in": -32264, "I_rcal_quad": -667, "Q_rcal_quad": -180, "I_cal_in": 31884, "Q_cal_in": -31913, "I_cal_quad": -172, "Q_cal_quad": 171, "I_coeff": 144.92938149262457, "Q_coeff": 145.06117333133793, "I_phase_coeff": -0.30908225070919015, "Q_phase_coeff": -0.3070060643122677, "avg_real": 567.5581477650292, "avg_imag": -2.999680099681439, "avg_mag": 567.5660747218521, "avg_angle": -0.3028190327100995 }, { "freq": 100000, "mdiv": 781, "ndiv": 1, "kdiv": 0, "dac_osr": 3, "adc_osr": 5, "generatedFreq": 99968, "recievedFreq": 3, "I_offset": -523, "Q_offset": -318, "I_rcal_in": 32431, "Q_rcal_in": -33304, "I_rcal_quad": -649, "Q_rcal_quad": -195, "I_cal_in": 32954, "Q_cal_in": -32986, "I_cal_quad": -126, "Q_cal_quad": 123, "I_coeff": 149.79200400158186, "Q_coeff": 149.9374060171127, "I_phase_coeff": -0.21907000785591405, "Q_phase_coeff": -0.21364664455470359, "avg_real": 565.5223545282602, "avg_imag": -5.123538596608819, "avg_mag": 565.5455632563463, "avg_angle": -0.5190760436294682 }, { "freq": 150000, "mdiv": 586, "ndiv": 1, "kdiv": 0, "dac_osr": 2, "adc_osr": 5, "generatedFreq": 150016, "recievedFreq": 3, "I_offset": -590, "Q_offset": -167, "I_rcal_in": 34221, "Q_rcal_in": -35010, "I_rcal_quad": -403, "Q_rcal_quad": -367, "I_cal_in": 34811, "Q_cal_in": -34843, "I_cal_quad": 187, "Q_cal_quad": -200, "I_coeff": 158.23410120806437, "Q_coeff": 158.3798818120847, "I_phase_coeff": 0.30778224440563184, "Q_phase_coeff": 0.32887610289176095, "avg_real": 561.0138841946366, "avg_imag": -6.684649755807154, "avg_mag": 561.0537075909141, "avg_angle": -0.6826642002255154 }, { "freq": 200000, "mdiv": 781, "ndiv": 1, "kdiv": 0, "dac_osr": 2, "adc_osr": 5, "generatedFreq": 199936, "recievedFreq": 3, "I_offset": -626, "Q_offset": -213, "I_rcal_in": 36743, "Q_rcal_in": -37613, "I_rcal_quad": 486, "Q_rcal_quad": -1337, "I_cal_in": 37369, "Q_cal_in": -37400, "I_cal_quad": 1112, "Q_cal_quad": -1124, "I_coeff": 169.93427904403183, "Q_coeff": 170.0767556426138, "I_phase_coeff": 1.7044638861505226, "Q_phase_coeff": 1.7214191871031532, "avg_real": 556.3332314603582, "avg_imag": -7.527171990098498, "avg_mag": 556.3841503361621, "avg_angle": -0.7751628858029042 }, { "freq": 250000, "mdiv": 488, "ndiv": 0, "kdiv": 0, "dac_osr": 1, "adc_osr": 6, "generatedFreq": 249856, "recievedFreq": 3, "I_offset": -583, "Q_offset": -88, "I_rcal_in": 40095, "Q_rcal_in": -40793, "I_rcal_quad": 1956, "Q_rcal_quad": -2656, "I_cal_in": 40678, "Q_cal_in": -40705, "I_cal_quad": 2539, "Q_cal_quad": -2568, "I_coeff": 185.25982452394967, "Q_coeff": 185.39056655995606, "I_phase_coeff": 3.5715990924057754, "Q_phase_coeff": 3.6098961218309915, "avg_real": 551.227957339308, "avg_imag": -7.441135594640343, "avg_mag": 551.2781797345182, "avg_angle": -0.773400122560554 }, { "freq": 300000, "mdiv": 586, "ndiv": 1, "kdiv": 0, "dac_osr": 1, "adc_osr": 5, "generatedFreq": 300032, "recievedFreq": 3, "I_offset": -639, "Q_offset": -117, "I_rcal_in": 44260, "Q_rcal_in": -45038, "I_rcal_quad": 4888, "Q_rcal_quad": -5676, "I_cal_in": 44899, "Q_cal_in": -44921, "I_cal_quad": 5527, "Q_cal_quad": -5559, "I_coeff": 205.62683494119605, "Q_coeff": 205.74389932009655, "I_phase_coeff": 7.017720124514785, "Q_phase_coeff": 7.054520627785574, "avg_real": 543.523718311655, "avg_imag": -5.2272857048869525, "avg_mag": 543.5488541825545, "avg_angle": -0.5510195149778806 }];
 //window.frequenciesArray = [{ "freq": 50000, "mdiv": 781, "ndiv": 1, "kdiv": 1, "dac_osr": 3, "adc_osr": 5, "generatedFreq": 49984, "recievedFreq": 3, "I_offset": -481, "Q_offset": -359, "I_rcal_in": 31391, "Q_rcal_in": -32268, "I_rcal_quad": -665, "Q_rcal_quad": -190, "I_cal_in": 31872, "Q_cal_in": -31909, "I_cal_quad": -184, "Q_cal_quad": 169, "I_coeff": 144.87514145487572, "Q_coeff": 145.04294334169842, "I_phase_coeff": -0.33077015284138, "Q_phase_coeff": -0.30345345201534607 }];
 window.frequenciesArray = [];
@@ -187,7 +187,11 @@ window.doAverageSweep = 1;
                       characteristicWrite = characteristic;
                       //Request resistance read
                       $("#btn-send-recieve").unbind().click(async function () {
-                        window.frequenciesArray = [];
+                        singleFrequencyTransmission = 1;
+                        if (window.frequenciesArray) {
+                          sweepIndex = window.frequenciesArray.findIndex(entry => entry.freq === 50000);
+                        }
+                        //window.frequenciesArray = [];
                         window.calibratedValues = [];
                         totalTag1 = 0;
                         totalTag2 = 0;
@@ -509,9 +513,15 @@ window.doAverageSweep = 1;
       alertForm.fadeOut();
 
       var arrayData;
-      if (!window.frequenciesArray) {
-        console.log("Using (non)calibrated values");
-        arrayData = transformCalibDataToArray(window.calibratedValues);
+      if (window.calibratedValues && window.calibratedValues.length > 0) {
+        if (window.calibratedValues[0].computedI && window.calibratedValues[0].computedQ) {
+          console.log("Using calibrated values");
+          arrayData = transformCalibDataToArray(window.calibratedValues);
+        }
+        else {
+          console.log("Using (non)calibrated values");
+          arrayData = transformNonCalibDataToArray(window.calibratedValues);
+        }
       }
       else {
         console.log("Using frequencies array")
@@ -570,14 +580,40 @@ function transformCalibDataToArray(data) {
   //To be interpreted as csv or xslx
   const result = [];
   // Optional: Add headers
-  result.push(["Frequency (kHz)", "Sample Number", "Value"]);
+  result.push(["Frequency (kHz)", "Sample Rate", "Sample Index", "Magnitude", "Angle", "Real", "Imaginary"]);
+  var indexSample = 0;
+  for (const key in data) {
+    const item = data[key];
+    result.push([
+      50e3,
+      21.4140,
+      indexSample,
+      item.load_mag,
+      item.load_angle,
+      item.load_real,
+      item.load_imag,
+
+    ]);
+    indexSample++;
+  }
+
+  return result;
+}
+
+function transformNonCalibDataToArray(data) {
+  //Transforms data to the correct format
+  //To be interpreted as csv or xslx
+  const result = [];
+  // Optional: Add headers
+  result.push(["Frequency (kHz)", "Sample Number", "ValueQ", "ValueI"]);
   var indexSample = 0;
   for (const key in data) {
     const item = data[key];
     result.push([
       50e3,
       indexSample,
-      item.value,
+      item.valueQ,
+      item.valueI,
 
     ]);
     indexSample++;
@@ -1012,7 +1048,7 @@ function handleCommand(event) {
     if (tag == 1) {
       //Phase
       if (!window.calibratedValues[totalTag1]) window.calibratedValues[totalTag1] = {};
-      window.calibratedValues[totalTag1].value = numValue;
+      window.calibratedValues[totalTag1].valueI = numValue;
       if (window.frequenciesArray.length > 0) {
         window.calibratedValues[totalTag1].I_load_offset = numValue - window.frequenciesArray[sweepIndex].I_offset;
         window.calibratedValues[totalTag1].I_cal_real = (window.calibratedValues[totalTag1].I_load_offset / window.frequenciesArray[sweepIndex].I_coeff) * Math.cos(window.frequenciesArray[sweepIndex].I_phase_coeff * (Math.PI / 180));
@@ -1029,7 +1065,7 @@ function handleCommand(event) {
     else if (tag == 2) {
       //Quadrature
       if (!window.calibratedValues[totalTag2]) window.calibratedValues[totalTag2] = {};
-      window.calibratedValues[totalTag2].value = numValue;
+      window.calibratedValues[totalTag2].valueQ = numValue;
       if (window.frequenciesArray.length > 0) {
         window.calibratedValues[totalTag2].Q_load_offset = numValue - window.frequenciesArray[sweepIndex].Q_offset;
         window.calibratedValues[totalTag2].Q_cal_real = (window.calibratedValues[totalTag2].Q_load_offset / window.frequenciesArray[sweepIndex].Q_coeff) * Math.sin(window.frequenciesArray[sweepIndex].Q_phase_coeff * (Math.PI / 180));
@@ -1273,32 +1309,56 @@ function computeGraph(option) {
   deleteChartData();
   window.chartPhase.options.scales.x.grid.display = true;
   window.chartPhase.options.scales.x.display = true;
-  window.chartPhase.data.datasets[0].label = "Magnitude";
 
   window.chartQuadrature.options.scales.x.grid.display = true;
   window.chartQuadrature.options.scales.x.display = true;
-  window.chartPhase.data.datasets[1].label = "Angle (º)";
 
   if (option == "singleTransmission") {
     var indexChart = 0;
     console.log("Calibrated values: ", window.calibratedValues);
     for (const singleValueSweep of window.calibratedValues) {
       if (indexChart < totalTag1 - 1) {
+        if (singleValueSweep.computedI && singleValueSweep.computedQ) {
+          window.calibratedValues[indexChart].load_real = singleValueSweep.I_cal_real - singleValueSweep.Q_cal_real;
+          window.calibratedValues[indexChart].load_imag = singleValueSweep.I_cal_imag + singleValueSweep.Q_cal_img;
+          window.calibratedValues[indexChart].load_mag = Math.sqrt(window.calibratedValues[indexChart].load_real ** 2 + window.calibratedValues[indexChart].load_imag ** 2);
+          window.calibratedValues[indexChart].load_angle = Math.atan(window.calibratedValues[indexChart].load_imag / window.calibratedValues[indexChart].load_real) * 180 / Math.PI;
+
+          window.chartPhase.data.datasets[0].label = "Magnitude";
+          window.chartPhase.data.datasets[1].label = "Angle (º)";
+        }
+        else {
+          window.chartPhase.data.datasets[0].label = "I";
+          window.chartPhase.data.datasets[1].label = "Q";
+        }
+
         if (window.chartPhase.data.datasets.length > 0) {
           //If the chart has at least one dataset
           window.chartPhase.data.labels.push(indexChart);
-          window.chartPhase.data.datasets[0].data.push(singleValueSweep.value);
+          if (singleValueSweep.computedI) {
+            window.chartPhase.data.datasets[0].data.push(window.calibratedValues[indexChart].load_mag);
+          }
+          else {
+            window.chartPhase.data.datasets[0].data.push(singleValueSweep.valueI);
+          }
         }
         if (window.chartQuadrature.data.datasets.length > 0) {
           //If the chart has at least one dataset
           window.chartQuadrature.data.labels.push(indexChart);
-          window.chartQuadrature.data.datasets[0].data.push(singleValueSweep.value);
+          if (singleValueSweep.computedI) {
+            window.chartQuadrature.data.datasets[0].data.push(window.calibratedValues[indexChart].load_angle);
+          }
+          else {
+            window.chartQuadrature.data.datasets[0].data.push(singleValueSweep.valueQ);
+          }
         }
       }
       indexChart++;
     }
   }
   else {
+    window.chartPhase.data.datasets[0].label = "Magnitude";
+    window.chartPhase.data.datasets[1].label = "Angle (º)";
     for (const singleValueSweep of window.frequenciesArray) {
       if (window.chartPhase.data.datasets.length > 0) {
         //If the chart has at least one dataset
@@ -1317,6 +1377,7 @@ function computeGraph(option) {
 
   window.chartPhase.update();
   window.chartQuadrature.update();
+  singleFrequencyTransmission = 0;
 }
 
 function onDisconnected(event) {
