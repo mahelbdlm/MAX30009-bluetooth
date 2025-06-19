@@ -30,4 +30,4 @@ This code uses several dependencies:
 * Chart.js, Released under the MIT License
 * FileSaver.js, By Eli Grey, Licensed under MIT (https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md)
 
-This code is part of a bachelor thesis, which per per university policy is licenced under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (https://creativecommons.org/licenses/by-nc-sa/4.0/).
+This project is part of a bachelor thesis, which per per university policy is licenced under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (https://creativecommons.org/licenses/by-nc-sa/4.0/). All dependencies used keep their original license, some of them were uploaded in case a CDN stopped working.
