@@ -6,7 +6,7 @@ Design and Implementation of a Bioimpedance Measurement System Based on the MAX3
 
 The system created uses an Arduino Nano to communicate with the PC and the MAX30009 chip. The Arduino is connected to two main components: the MAX30009 chip and the EEPROM memory through the SPI communication protocol.
 <div align="center">
-    <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/2c1f3968-c883-4ab7-a9c3-75bc40b1880c">
+    <img height="70%" width="70%" alt="Image" src="https://github.com/user-attachments/assets/2c1f3968-c883-4ab7-a9c3-75bc40b1880c">
   <br/>
   <i>Figure 1: Diagram of the communication between the components</i>
 </div>
@@ -20,9 +20,10 @@ The way the Bluetooth transmission works is simple. In general, the PC requests 
 </div>
 <br />
 
+
 The schematic of the system is provided below: 
 <div align="center">
-    <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/c1b966ea-5f36-483c-b858-4d062a4a7e35">
+    <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/c96eac28-1345-4796-b76a-7d7069b13acd">
   <br/>
   <i>Figure 3: Schematic of the system</i>
 </div>
