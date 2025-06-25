@@ -23,7 +23,7 @@ var calibTransmission = 0, calibFatalError = 0, sweepTransmission = 0, sweepInde
 window.frequenciesArray = [];
 //var calibrationFrequencies = [5, 20, 50, 100, 150, 200, 250, 300];
 //  var calibrationFrequencies = [25, 50, 100, 150];
-  var calibrationFrequencies = [50];
+var calibrationFrequencies = [50];
 var xlsx, csv;
 
 window.doAverageSweep = 1;
@@ -36,32 +36,6 @@ window.doAverageSweep = 1;
     $("#btn-compute-frequency").removeClass("noDisplay");
   }
   //$("#btns-commands").css("display", "flex");
-
-  /*$("#btn-charttest").fadeIn().click(function () {
-    if (window.chartPhase || window.chartQuadrature) {
-      deleteChartData();
-    } else {
-      createChartBioZ();
-    }
-
-    $("#div-chart").css("display", "grid");
-    for (let i = 0; i < 1000; i++) {
-      let numValue;
-      if (i % 2 == 0) {
-        numValue = numValue = Math.floor(Math.random() * (0xFFFFFF - 0xFF0000 + 1)) + 0xFF0000;
-        totalTag1++;
-        updateChartData(0, numValue);
-      }
-      else {
-        numValue = Math.floor(Math.random() * 0x0000100);
-        totalTag2++;
-        updateChartData(1, numValue);
-      }
-      //console.log("Update: ", totalTag1, totalTag2, Math.max(totalTag1, totalTag2));
-    }
-    window.chartPhase.update();
-    window.chartQuadrature.update();
-  });*/
 
   if (!('bluetooth' in navigator)) {
     console.log("Navigator doesn't support bluetooth");
@@ -148,19 +122,6 @@ window.doAverageSweep = 1;
                   const characteristics = await service.getCharacteristics();
 
                   characteristics.forEach(async characteristic => {
-                    /*console.log('>> Characteristic UUID:  ' + characteristic.uuid);
-                    console.log('>> Broadcast:            ' + characteristic.properties.broadcast);
-                    console.log('>> Read:                 ' + characteristic.properties.read);
-                    console.log('>> Write w/o response:   ' +
-                      characteristic.properties.writeWithoutResponse);
-                    console.log('>> Write:                ' + characteristic.properties.write);
-                    console.log('>> Notify:               ' + characteristic.properties.notify);
-                    console.log('>> Indicate:             ' + characteristic.properties.indicate);
-                    console.log('>> Signed Write:         ' +
-                      characteristic.properties.authenticatedSignedWrites);
-                    console.log('>> Queued Write:         ' + characteristic.properties.reliableWrite);
-                    console.log('>> Writable Auxiliaries: ' +
-                      characteristic.properties.writableAuxiliaries);*/
 
                     console.log('>> Characteristic: ' + characteristic.uuid + ' ' +
                       getSupportedProperties(characteristic));
@@ -218,6 +179,8 @@ window.doAverageSweep = 1;
                       });
                       $("#btn-sweep").unbind().click(async function () {
                         if (debugMode && false) {
+                          //Allow to select the sweep frequencies whether they were calibrated or not
+                          //NOT FINISHED; CRASHES THE BROWSER...
                           var txtTable = "";
                           window.frequenciesArray.forEach((element, index) => {
                             txtTable += returnHTMLRowCalib("sweep", index, Math.round(element.generatedFreq / 1e3), { calibrated: true });
@@ -367,78 +330,34 @@ window.doAverageSweep = 1;
                           }
                           console.log(window.frequenciesArray);
 
-                          //Send the first frame that indicates the number of frequencies to calibrate
-                          /*let valueInitCalib = new Uint8Array([
-                            0x00,
-                            0x0C,
-                            (window.frequenciesArray.length) & 0xFF
-                          ]);
-                          */
                           const Rcal = Number($("#form-calibrate input[name='calibResistor']").val());
 
+                          let valueInitCalib = new Uint8Array([
+                            0xC0,
+                            0x00,
+                            (chbk_check_spi << 5) | (chbk_eeprom << 4) | (chbk_debug << 3) | (calibInput << 2) | 0x3,
+                          ]);
+                          console.log(valueInitCalib);
+                          await characteristicWrite.writeValue(valueInitCalib);
 
-                          //This if was done to quickly be able to work with another version of the programm
-                          //To remove before publication
-                          //TOREMOVE
-                          if (firmwareVersion == "FW V1.5") {
-                            let valueInitCalib = new Uint8Array([
-                              0xC0,
-                              0x00,
-                              (chbk_check_spi << 5) | (chbk_eeprom << 4) | (chbk_debug << 3) | (calibInput << 2) | 0x3,
-                            ]);
-                            console.log(valueInitCalib);
-                            await characteristicWrite.writeValue(valueInitCalib);
+                          valueInitCalib = new Uint8Array([
+                            0xC1,
+                            (window.frequenciesArray.length) & 0xFF,
+                            (Rcal >> 16) & 0xFF,
 
-                            valueInitCalib = new Uint8Array([
-                              0xC1,
-                              (window.frequenciesArray.length) & 0xFF,
-                              (Rcal >> 16) & 0xFF,
+                          ]);
+                          console.log(valueInitCalib);
+                          await characteristicWrite.writeValue(valueInitCalib);
 
-                            ]);
-                            console.log(valueInitCalib);
-                            await characteristicWrite.writeValue(valueInitCalib);
-
-                            valueInitCalib = new Uint8Array([
-                              0xC2,
-                              (Rcal >> 8) & 0xFF,
-                              Rcal & 0xFF,
-                            ]);
-                            console.log(valueInitCalib);
-                            await characteristicWrite.writeValue(valueInitCalib);
-                          }
-                          else {
-                            console.log("Number of calibration frequencies: ", window.frequenciesArray.length);
-                            let valueInitCalib = new Uint8Array([
-                              0xC0,
-                              (window.frequenciesArray.length) & 0xFF,
-                              (Rcal >> 16) & 0xFF,
-                            ]);
-                            let hexValue = Array.from(valueInitCalib).map(byte => byte.toString(16).padStart(2, '0')).join(' ').toUpperCase();
-                            console.log("Hex value: ", hexValue);
-                            await characteristicWrite.writeValue(valueInitCalib);
-
-                            valueInitCalib = new Uint8Array([
-                              0xC1,
-                              (Rcal >> 8) & 0xFF,
-                              Rcal & 0xFF,
-                            ]);
-                            hexValue = Array.from(valueInitCalib).map(byte => byte.toString(16).padStart(2, '0')).join(' ').toUpperCase();
-                            console.log("Hex value: ", hexValue);
-                            await characteristicWrite.writeValue(valueInitCalib);
-
-                            valueInitCalib = new Uint8Array([
-                              0xC2,
-                              0x00,
-                              (chbk_check_spi << 5) | (chbk_eeprom << 4) | (chbk_debug << 3) | (calibInput << 2) | 0x3,
-                            ]);
-                            hexValue = Array.from(valueInitCalib).map(byte => byte.toString(16).padStart(2, '0')).join(' ').toUpperCase();
-                            console.log("Hex value: ", hexValue);
-                            await characteristicWrite.writeValue(valueInitCalib);
-                          }
-
+                          valueInitCalib = new Uint8Array([
+                            0xC2,
+                            (Rcal >> 8) & 0xFF,
+                            Rcal & 0xFF,
+                          ]);
+                          console.log(valueInitCalib);
+                          await characteristicWrite.writeValue(valueInitCalib);
 
                           calibTransmission = 1;
-                          //for (const element of window.frequenciesArray) {};
 
                           //Send the first frequency to calibrate
                           await sendFrequencyToArduino(0x3, 0);
@@ -1330,13 +1249,13 @@ function computeGraph(option) {
 
           window.chartPhase.data.datasets[0].label = "Magnitude (\u2126)";
           window.chartPhase.data.datasets[1].label = "Angle (º)";
-          
+
           window.chartPhase.config.options.scales.y.title.text = "Magnitude (\u2126)";
           window.chartQuadrature.config.options.scales.y.title.text = "Angle (º)";
           window.chartQuadrature.config.options.scales.x.title.text = "Time (s)";
-          window.chartPhase.config.options.scales.y.title.display=true;
-          window.chartQuadrature.config.options.scales.y.title.display=true;
-          window.chartQuadrature.config.options.scales.x.title.display=true;
+          window.chartPhase.config.options.scales.y.title.display = true;
+          window.chartQuadrature.config.options.scales.y.title.display = true;
+          window.chartQuadrature.config.options.scales.x.title.display = true;
 
           window.calibratedValues[indexChart].sampleNum = indexChart;
         }
@@ -1346,7 +1265,7 @@ function computeGraph(option) {
           window.chartPhase.data.datasets[0].label = "I";
           window.chartPhase.data.datasets[1].label = "Q";
           window.chartQuadrature.config.options.scales.x.title.text = "Sample Number";
-          window.chartQuadrature.config.options.scales.x.title.display=true;
+          window.chartQuadrature.config.options.scales.x.title.display = true;
         }
 
         if (window.chartPhase.data.datasets.length > 0) {
