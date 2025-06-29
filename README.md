@@ -4,6 +4,7 @@ Design and Implementation of a Bioimpedance Measurement System Based on the MAX3
 > [!NOTE]
 > This project was developed as part of a Bachelor's thesis. The essential functionality and context are summarized below. For full technical details, design decisions, and results, please refer to the complete thesis document
 
+
 The system created uses an Arduino Nano to communicate with the PC and the MAX30009 chip. The Arduino is connected to two main components: the MAX30009 chip and the EEPROM memory through the SPI communication protocol.
 <div align="center">
     <img height="70%" width="70%" alt="Image" src="https://github.com/user-attachments/assets/2c1f3968-c883-4ab7-a9c3-75bc40b1880c">
@@ -97,6 +98,9 @@ The user interface is also capable of detecting errors happening on the Arduino.
 <br />
 As the system’s capabilities continue to expand, managing all potential failures and displaying specific error messages in the user interface becomes increasingly challenging. To maintain a simple user interface, only common errors and failures are presented. For more complex errors, such as the chip failing to respond during power-up, or the transmission of an invalid sequence, generic error messages are displayed. Details of these errors can be obtained through the Arduino console. 
 The user interface is designed to be simple and require few configuration. However, when unexpected errors happen, additional configuration options may be necessary. For this reason, a “debug mode” is available within the interface, allowing user to customize more parameters. 
+
+# Demo Video
+https://github.com/user-attachments/assets/271bb9e3-cba0-4645-9aed-a14933d25813
 
 # Licences
 This code uses several dependencies: 
