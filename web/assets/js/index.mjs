@@ -7,6 +7,7 @@ import { btnAlertError, btnAlertErrorWithTimeout, btnAlertSuccessWithTimeout, bt
 
 
 const debugMode = new URL(location.href).searchParams.get('debug') == "true";
+const demoMode = new URL(location.href).searchParams.get('demo') == "true";
 var firmwareVersion = "";
 var bluetoothDevice, characteristicWrite = null;
 
@@ -35,6 +36,12 @@ window.doAverageSweep = 1;
     $("#col-one-time").css("display", "flex");
     $("#btn-compute-frequency").removeClass("noDisplay");
   }
+  if (demoMode) {
+    $("[alerttype='debugmode']").css("display", "block");
+    $("[alerttype='debugmode'] strong").html(" Modo DEMO activado");
+    $("#col-one-time").css("display", "flex");
+    $("#btn-compute-frequency").removeClass("noDisplay");
+  }
   //$("#btns-commands").css("display", "flex");
 
   if (!('bluetooth' in navigator)) {
@@ -49,7 +56,35 @@ window.doAverageSweep = 1;
       $("#alert-connect-form").fadeOut();
       $("#alert-connect-sequence").fadeOut();
       $("#alert-sweep").fadeOut();
-      if (isWebBluetoothEnabled()) {
+      if (demoMode) {
+        btnLoadingTimeout($("#btn-connect-arduino"), 15000);
+        $("#row-connect-sequence").css("display", "flex");
+        setStepSpinner($("#div-connect-step-1"));
+        setStepWait($("#div-connect-step-2"));
+        setStepWait($("#div-connect-step-3"));
+        setStepWait($("#div-connect-step-4"));
+        setTimeout(() => {
+          setStepOK($("#div-connect-step-1"));
+          setStepSpinner($("#div-connect-step-2"));
+          setTimeout(() => {
+            setStepOK($("#div-connect-step-2"));
+            setStepSpinner($("#div-connect-step-3"));
+            setTimeout(() => {
+              setStepOK($("#div-connect-step-3"));
+              setStepSpinner($("#div-connect-step-4"));
+              setTimeout(() => {
+                setStepOK($("#div-connect-step-4"));
+                btnCustom($("#btn-connect-arduino"), "Desconectarse", "primary", true, true, true);
+                $("#btn-connect-arduino").attr("purpose", "disconnect");
+                $("#btns-commands").fadeIn();
+              }, 500);
+            }, 500);
+          }, 500);
+
+        }, 500);
+
+      }
+      else if (isWebBluetoothEnabled()) {
         btnLoadingTimeout($("#btn-connect-arduino"), 15000);
         if (navigator.bluetooth) {
           const target = $("#btn-connect-arduino").attr("purpose");
