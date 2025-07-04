@@ -99,6 +99,9 @@ The user interface is also capable of detecting errors happening on the Arduino.
 As the system’s capabilities continue to expand, managing all potential failures and displaying specific error messages in the user interface becomes increasingly challenging. To maintain a simple user interface, only common errors and failures are presented. For more complex errors, such as the chip failing to respond during power-up, or the transmission of an invalid sequence, generic error messages are displayed. Details of these errors can be obtained through the Arduino console. 
 The user interface is designed to be simple and require few configuration. However, when unexpected errors happen, additional configuration options may be necessary. For this reason, a “debug mode” is available within the interface, allowing user to customize more parameters. 
 
+# Frequency Calculator
+The frequency needs to be decomposed into a series of 5 registers. This process is automatic in the calibration pannel, however a special webpage has been introduced to manually check which parameters are returned for each frequency. It uses the same function to decompose the frequency as the calibration pannel. This page can be found at frequency.html, and its live version at https://mahelbdlm.github.io/MAX30009-bluetooth/frequency.html
+
 # Demo Video
 https://github.com/user-attachments/assets/271bb9e3-cba0-4645-9aed-a14933d25813
 
