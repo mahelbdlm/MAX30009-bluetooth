@@ -105,6 +105,11 @@ The frequency needs to be decomposed into a series of 5 registers. This process 
 # Demo Video
 https://github.com/user-attachments/assets/271bb9e3-cba0-4645-9aed-a14933d25813
 
+# Web Application
+The web application was designed using Bootstrap Studio. This allows to use a template css file and quickly generate html code. Javascript however, must be started from scratch. 
+You can find in the boostrap studio folder the .bsdesign file. 
+Note that Boostrap Studio is a licensed application. Alternatively, the exported HTML and JS files can be found under the /web folder.
+
 # Licences
 This code uses several dependencies: 
 * Bootstrap, Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
