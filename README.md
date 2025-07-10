@@ -7,7 +7,7 @@ Design and Implementation of a Bioimpedance Measurement System Based on the MAX3
 
 The system created uses an Arduino Nano to communicate with the PC and the MAX30009 chip. The Arduino is connected to two main components: the MAX30009 chip and the EEPROM memory through the SPI communication protocol.
 <div align="center">
-    <img height="70%" width="70%" alt="Image" src="https://github.com/user-attachments/assets/2c1f3968-c883-4ab7-a9c3-75bc40b1880c">
+    <img width="60%" alt="Image" src="https://github.com/user-attachments/assets/2c1f3968-c883-4ab7-a9c3-75bc40b1880c">
   <br/>
   <i>Figure 1: Diagram of the communication between the components</i>
 </div>
@@ -15,7 +15,7 @@ The system created uses an Arduino Nano to communicate with the PC and the MAX30
 
 The way the Bluetooth transmission works is simple. In general, the PC requests a command, and the Arduino responds to it. For example, the following transmission is used when initializing the device and requesting the calibrated values to the EEPROM: 
 <div align="center">
-    <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/fa4192a9-b043-4832-81fe-eba3366e6162">
+    <img width="50%" alt="Image" src="https://github.com/user-attachments/assets/fa4192a9-b043-4832-81fe-eba3366e6162">
   <br/>
   <i>Figure 2: Diagram of the connections between the Arduino and the chip</i>
 </div>
@@ -24,7 +24,7 @@ The way the Bluetooth transmission works is simple. In general, the PC requests 
 
 The schematic of the system is provided below: 
 <div align="center">
-    <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/c96eac28-1345-4796-b76a-7d7069b13acd">
+    <img width="50%" alt="Image" src="https://github.com/user-attachments/assets/c96eac28-1345-4796-b76a-7d7069b13acd">
   <br/>
   <i>Figure 3: Schematic of the system</i>
 </div>
@@ -36,14 +36,14 @@ Since this project is being developed in Spain, the language chosen for the inte
 The user interface guides the user throughout all the process. When the device is first powered on, a message will indicate that the calibration values were not found. 
 
 <div align="center">
-    <img height="50%" width="50%" alt="Image" src="https://github.com/user-attachments/assets/d3594256-abcb-4321-acab-d95579ff4d37">
+    <img width="50%" alt="Image" src="https://github.com/user-attachments/assets/d3594256-abcb-4321-acab-d95579ff4d37">
   <br/>
   <i>Figure 4: User interface when establishing connection with a non calibrated device</i>
 </div>
 <br />
 The user can then click on the calibrate button and input the desired parameters such as the calibration resistance used, the desired frequencies and the input mode. 
 <div align="center">
-    <img height="30%" width="30%" alt="Image" src="https://github.com/user-attachments/assets/7c6147e6-85b4-43d9-824b-76dfa431eaae">
+    <img width="30%" alt="Image" src="https://github.com/user-attachments/assets/7c6147e6-85b4-43d9-824b-76dfa431eaae">
   <br/>
   <i>Figure 5: Calibration menu</i>
 </div>
@@ -52,7 +52,7 @@ The user can then click on the calibrate button and input the desired parameters
 More specifically, it can indicate the calibration resistance value and request up to 127 frequencies. These frequencies will be same one used to measure the impedance. 
 Upon completion, a success message appears in the calibration menu. 
  <div align="center">
-    <img height="30%" width="30%" alt="Image" src="https://github.com/user-attachments/assets/db8f04cf-fd5a-412f-a108-283b2a68c311">
+    <img width="30%" alt="Image" src="https://github.com/user-attachments/assets/db8f04cf-fd5a-412f-a108-283b2a68c311">
   <br/>
   <i>Figure 6: Success message upon calibration completion</i>
 </div>
@@ -62,7 +62,7 @@ This alert also allows to save the calibration values into a json file. In this 
 Once the calibration has been successfully completed, the values can be obtained: 
 
 <div align="center">
-    <img height="100%" width="100%" alt="Image" src="https://github.com/user-attachments/assets/eea0c113-9a7f-4040-81e3-0f7cf0c41fdd">
+    <img width="100%" alt="Image" src="https://github.com/user-attachments/assets/eea0c113-9a7f-4040-81e3-0f7cf0c41fdd">
   <br/>
   <i>Figure 7: Graph showing the impedance magnitude and phase obtained through the user interface, generated using chartjs</i>
 </div>
@@ -73,7 +73,7 @@ Each frequency is computed using an average of 32 samples. This value can be cha
 The values can also be saved in CSV or Excel files by clicking on the Download button and selecting the file format.
 
 <div align="center">
-    <img height="30%" width="30%" alt="Image" src="https://github.com/user-attachments/assets/0758accd-feeb-4bf5-80a0-fdc0899cbc12">
+    <img width="30%" alt="Image" src="https://github.com/user-attachments/assets/0758accd-feeb-4bf5-80a0-fdc0899cbc12">
   <br/>
   <i>Figure 8: Downloading the values</i>
 </div>
@@ -82,7 +82,7 @@ The values can also be saved in CSV or Excel files by clicking on the Download b
 The file can then be inspected using third party tools (excel, matlab...)
 
 <div align="center">
-    <img height="40%" width="40%" alt="Image" src="https://github.com/user-attachments/assets/57379abe-2601-4c94-be43-199e652c0af5">
+    <img width="40%" alt="Image" src="https://github.com/user-attachments/assets/57379abe-2601-4c94-be43-199e652c0af5">
   <br/>
   <i>Figure 10: Opening the values downloaded through the user interface with Excel</i>
 </div>
@@ -91,7 +91,7 @@ The file can then be inspected using third party tools (excel, matlab...)
 The user interface is also capable of detecting errors happening on the Arduino. For example, if the MAX30009 chip is not connected, the page displays the following error message: 
 
 <div align="center">
-    <img height="70%" width="70%" alt="Image" src="https://github.com/user-attachments/assets/dea2a04e-2156-4093-907b-34d410efcc3b">
+    <img width="70%" alt="Image" src="https://github.com/user-attachments/assets/dea2a04e-2156-4093-907b-34d410efcc3b">
   <br/>
   <i>Figure 11: Error message displayed on the user interface</i>
 </div>
