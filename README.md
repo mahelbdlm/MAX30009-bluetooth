@@ -4,6 +4,9 @@ Design and Implementation of a Bioimpedance Measurement System Based on the MAX3
 > [!NOTE]
 > This project was developed as part of a Bachelor's thesis. The essential functionality and context are summarized below. For full technical details, design decisions, and results, please refer to the complete thesis document
 
+> [!TIP]
+> The web application can be accessed at https://mahelbdlm.github.io/MAX30009-bluetooth/
+
 
 The system created uses an Arduino Nano to communicate with the PC and the MAX30009 chip. The Arduino is connected to two main components: the MAX30009 chip and the EEPROM memory through the SPI communication protocol.
 <div align="center">
