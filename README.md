@@ -4,6 +4,9 @@ Design and Implementation of a Bioimpedance Measurement System Based on the MAX3
 > [!NOTE]
 > This project was developed as part of a Bachelor's thesis. The essential functionality and context are summarized below. For full technical details, design decisions, and results, please refer to the complete thesis document
 
+> [!TIP]
+> The web application can be accessed at https://mahelbdlm.github.io/MAX30009-bluetooth/
+
 
 The system created uses an Arduino Nano to communicate with the PC and the MAX30009 chip. The Arduino is connected to two main components: the MAX30009 chip and the EEPROM memory through the SPI communication protocol.
 <div align="center">
@@ -104,6 +107,11 @@ The frequency needs to be decomposed into a series of 5 registers. This process 
 
 # Demo Video
 https://github.com/user-attachments/assets/271bb9e3-cba0-4645-9aed-a14933d25813
+
+# Web Application
+The web application was designed using Bootstrap Studio. This allows to use a template css file and quickly generate html code. Javascript however, must be started from scratch. 
+You can find in the boostrap studio folder the .bsdesign file. 
+Note that Boostrap Studio is a licensed application. Alternatively, the exported HTML and JS files can be found under the /web folder.
 
 # Licences
 This code uses several dependencies: 
