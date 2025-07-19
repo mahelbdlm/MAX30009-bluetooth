@@ -1,9 +1,9 @@
 //Bluetooth BIOZ Arduino
 //Version 5
 
-/* 
-ARDUINO BIOZ WITH BLUETOOTH
-*/
+// while (!Serial) needs to be uncommented to debug using serial
+// Remove while (!Serial) to use with external battery
+
 #define print_spi_address_and_data 0  //Enable printing the SPI address and values transmitted
 #define MAX3009_enabled 1             //Enable / disable the MAX3009 chip SPI
 #define eeprom_enabled 0              //Enable / disable access to the EEPROM
@@ -102,6 +102,8 @@ void setup() {
   pinMode(CS_PIN_EEPROM, OUTPUT);
   pinMode(PIN_VOLTAGE_REDUCER, OUTPUT);
   Serial.begin(115200);  // initialize serial output
+
+
   while (!Serial) {
     ;
   }
@@ -243,6 +245,8 @@ void loop() {
       serial_functions();
       if (connectionEstablished == 1) {
         //Send the connection sequence to computer
+        //A second check is performed to ensure all the 
+        //devices are correctly connected
         connectionEstablished = 0;
         uint8_t partId = 0x00;
         uint8_t count = 0;
@@ -972,10 +976,6 @@ bool power_on() {
   SPI_read(0x17, &data_addr);         //Get the current parameters
   SPI_write(0x17, data_addr | 0x01);  //Send the bits to enable PLL_EN
 
-  //Serial.print("0x17: ");
-  //SPI_read(0x17, &data_addr);
-  //Serial.println(data_addr, HEX);
-
   uint8_t readValue = 0;
   unsigned long timeNow = millis();
   while (readValue == 0 && millis() - timeNow < 100) {
@@ -984,10 +984,6 @@ bool power_on() {
     //Serial.println(readValue);
     delay(10);
   }
-  //Serial.print("0x17: ");
-  //SPI_read(0x17, &data_addr);
-  //Serial.println(data_addr, HEX);
-  //Serial.println("");
 
   if (readValue == 0) {
     Serial.println("Timeout. Could't read value of FREQ_LOCK");
@@ -997,17 +993,13 @@ bool power_on() {
     //Serial.println(readValue);
   }
 
-
   //Enable BioZ I and Q
   SPI_read(0x20, &data_addr);         //Get the current parameters, we don t want to override them
   SPI_write(0x20, data_addr | 0x03);  //Send the bits to enable BIOZ_Q_EN and BIOZ_I_EN
   delay(2);
 
-  //Serial.print("0x17: ");
-  //SPI_read(0x17, &data_addr);
-  //Serial.println(data_addr, HEX);
-
   delay(10);
+  //Flush FIFO
   uint8_t dataFlush;
   SPI_read(0x0E, &dataFlush);         //Get the current parameters
   SPI_write(0x0E, dataFlush | 0x10);  //Send the bits
@@ -1550,7 +1542,7 @@ void read_from_PC(BLEDevice central, BLECharacteristic characteristic) {
           if (calPins) Serial.println("Use CALx pins (single trans)");
           else Serial.println("Use ELx pins (single trans)");
 
-          struct frequency_struct freqSweep = { 781, 1, 0x1, 0x3, 0x6 };
+          struct frequency_struct freqSweep = { 781, 1, 0x1, 0x3, 0x7 };
           if (!setFrequencyReg(freqSweep.MDIV, freqSweep.NDIV, freqSweep.KDIV, freqSweep.DAC_OSR, freqSweep.ADC_OSR)) {
             //Sending error 4 back
             unsigned long connect_PCValue;
@@ -1628,7 +1620,6 @@ void read_from_PC(BLEDevice central, BLECharacteristic characteristic) {
         if (save_eeprom) Serial.println("Save to eeprom");
         else Serial.println("Don't save to eeprom");
       } else if (type == 0x1) {
-        //Type 0
         //Recieving nb frequencies and rcal_2
         calibResistor = 0;
         nbFrequenciesExpected = ((reordered & 0x00FF00) >> 8) & 0xFF;
@@ -1662,9 +1653,7 @@ void read_from_PC(BLEDevice central, BLECharacteristic characteristic) {
         }
         calibResistor = (reordered & 0x0000FF) << 16;
       } else if (type == 0x02) {
-        //Type 1
         //Getting rcal_1 and rcal_0
-        //This is the last frame before initializing
         calibResistor = calibResistor | ((reordered & 0x00FF00) << 8) | (reordered & 0x0000FF);
         Serial.print("Calibration resistor: ");
         Serial.println(calibResistor);
