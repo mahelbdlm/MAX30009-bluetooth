@@ -724,6 +724,8 @@ async function handle7byte(event) {
       btnAlertErrorWithTimeout($("#btn-modal-calibrate"), $("#alert-form-calibrate"), "Se ha producido un error: el argumento 'type' recibido no es correcto", "mt-3");
     }
     else {
+      //Not an error, not end of transmission
+      
       //Generating the value
       let I_val =
         ((value.getUint8(2) & 0x0F) << 16) |
@@ -918,6 +920,7 @@ async function handle7byte(event) {
       console.log("Got frequency in terms of registers: \nmdiv: ", window.frequenciesArray[freqNum].mdiv, "\nndiv: ", window.frequenciesArray[freqNum].ndiv, "\nkdiv: ", window.frequenciesArray[freqNum].kdiv, "\ndac: ", window.frequenciesArray[freqNum].dac_osr, "\nadc: ", window.frequenciesArray[freqNum].adc_osr, "\nGenerated frequency: ", window.frequenciesArray[freqNum].generatedFreq / 1e3, " kHz");
     }
     else if (type == 0x03 || type == 0x04 || type == 0x05) {
+      //Getting calibration parameters stored in eeprom
       let I_val =
         ((value.getUint8(2) & 0x0F) << 16) |
         (value.getUint8(1) << 8) |
